@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package nfs;
+
+service NFS{
+    rpc Open(FileReq) returns (FileRes) {}
+    rpc Create(FileReq) returns (FileRes) {}
+    rpc Read(ReadReq) returns (ReadRes) {}
+    rpc Write(WriteReq) returns (WriteRes) {}
+    rpc Lseek(LseekReq) returns (LseekRes) {}
+    rpc Close(CloseReq) returns (CloseRes) {}
+}
+
+message FileReq{
+    string name = 1;
+    string mode = 2;
+}
+
+message FileRes {
+    int32 status = 1;
+    string name = 2;
+}
+
+message ReadReq{
+    int32 chunk = 1;
+    int32 status = 2;
+    string name = 3;
+}
+
+message ReadRes{
+    string data = 1;
+}
+
+message WriteReq{
+    string data = 1;
+    string name = 2;
+}
+
+message WriteRes {
+    int32 status = 1;
+}
+
+message LseekReq{
+    int32 offset = 1;
+    string name = 2;
+    int32 whence = 3;
+}
+
+message LseekRes{
+    int32 status = 1;
+}
+
+message CloseReq{
+    string name = 1;
+}
+
+message CloseRes{
+    int32 status = 1;
+}
+
